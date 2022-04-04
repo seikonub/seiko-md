@@ -1,3 +1,12 @@
+/**
+  * Created by Rafa
+  * Contact me on WhatsApp 0858-6187-0154
+  * Follow me on Instagram @seikooo_250
+  * If you want to buy an updated script that is not encrypted, please WhatsApp me
+  * Jika Anda ingin membeli Script yang diperbarui yang tidak enc, silakan WhatsApp saya
+  * Tes Fitur wa.me/6281381455128
+*/
+
 "use strict";
 const {
 	downloadContentFromMessage
@@ -13,7 +22,7 @@ const axios = require('axios')
 
 moment.tz.setDefault("Asia/Jakarta").locale("id");
 
-module.exports = async(client, msg, m, setting) => {
+module.exports = async(seiko, msg, m, setting) => {
 	try {
 		let { ownerNumber, botName } = setting
 		const jam = moment.tz('asia/jakarta').format('HH:mm:ss')
@@ -23,13 +32,13 @@ module.exports = async(client, msg, m, setting) => {
 		const from = msg.key.remoteJid
 		const chats = (type === 'conversation' && msg.message.conversation) ? msg.message.conversation : (type == 'imageMessage') && msg.message.imageMessage.caption ? msg.message.imageMessage.caption : (type == 'documentMessage') && msg.message.documentMessage.caption ? msg.message.documentMessage.caption : (type == 'videoMessage') && msg.message.videoMessage.caption ? msg.message.videoMessage.caption : (type == 'extendedTextMessage') && msg.message.extendedTextMessage.text ? msg.message.extendedTextMessage.text : (type == 'buttonsResponseMessage' && msg.message.buttonsResponseMessage.selectedButtonId) ? msg.message.buttonsResponseMessage.selectedButtonId : (type == 'templateButtonReplyMessage') && msg.message.templateButtonReplyMessage.selectedId ? msg.message.templateButtonReplyMessage.selectedId : ''
 		const toJSON = j => JSON.stringify(j, null,'\t')
-		if (client.multi) {
+		if (seiko.multi) {
 			var prefix = /^[°•><π÷×¶∆£¢€¥®™✓Z=|~!?#$%^&.\/\\©^]/.test(chats) ? chats.match(/^[°•><π÷×¶∆£¢€¥®™✓Z=|~!?#$%^&.\/\\©^]/gi)[0] : '-'
 		} else {
-			if (client.nopref) {
+			if (seiko.nopref) {
 				prefix = ''
 			} else {
-				prefix = client.prefa
+				prefix = seiko.prefa
 			}
 		}
 		const args = chats.split(' ')
@@ -41,8 +50,8 @@ module.exports = async(client, msg, m, setting) => {
 		const pushname = msg.pushName
 		const q = chats.slice(command.length + 1, chats.length)
 		const body = chats.startsWith(prefix) ? chats : ''
-		const botNumber = client.user.id.split(':')[0] + '@s.whatsapp.net'
-		const groupMetadata = isGroup ? await client.groupMetadata(from) : ''
+		const botNumber = seiko.user.id.split(':')[0] + '@s.whatsapp.net'
+		const groupMetadata = isGroup ? await seiko.groupMetadata(from) : ''
 		const groupName = isGroup ? groupMetadata.subject : ''
 		const groupId = isGroup ? groupMetadata.id : ''
 		const groupMembers = isGroup ? groupMetadata.participants : ''
@@ -85,13 +94,13 @@ module.exports = async(client, msg, m, setting) => {
 			return url.match(new RegExp(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)/, 'gi'))
 		}
 		const reply = (teks) => {
-			client.sendMessage(from, { text: teks }, { quoted: msg })
+			seiko.sendMessage(from, { text: teks }, { quoted: msg })
 		}
 		const sendMess = (hehe, teks) => {
-			client.sendMessage(hehe, { text, teks })
+			seiko.sendMessage(hehe, { text, teks })
 		}
 		const buttonWithText = (from, text, footer, buttons) => {
-			return client.sendMessage(from, { text: text, footer: footer, templateButtons: buttons })
+			return seiko.sendMessage(from, { text: text, footer: footer, templateButtons: buttons })
 		}
 		const sendContact = (jid, numbers, name, quoted, mn) => {
 			let number = numbers.replace(/[^0-9]/g, '')
@@ -101,12 +110,12 @@ module.exports = async(client, msg, m, setting) => {
 			+ 'ORG:;\n'
 			+ 'TEL;type=CELL;type=VOICE;waid=' + number + ':+' + number + '\n'
 			+ 'END:VCARD'
-			return client.sendMessage(from, { contacts: { displayName: name, contacts: [{ vcard }] }, mentions : mn ? mn : []},{ quoted: quoted })
+			return seiko.sendMessage(from, { contacts: { displayName: name, contacts: [{ vcard }] }, mentions : mn ? mn : []},{ quoted: quoted })
 		}
 		
 		const templateButtons = [
-			{ callButton: {displayText: `Call Owner!`, phoneNumber: `+6285770269605`} },
-			{ urlButton: { displayText: `Star & Fork in Github!`, url : `https://github.com/FebbAdityaN/termux-wabotmd`} },
+			{ callButton: {displayText: `Call Owner!`, phoneNumber: `+62 858-6187-0154`} },
+			{ urlButton: { displayText: `Star & Fork in Github!`, url : `https://github.com/seikonub/seiko-md`} },
 			{ quickReplyButton: { displayText: `🧑 Owner`, id: `${prefix}owner` } },
 			{ quickReplyButton: { displayText: `💰 Donasi`, id: `${prefix}donate` } },
 			{ quickReplyButton: { displayText: `🧬 Test Respon Bot`, id: `${prefix}test` } }
@@ -142,7 +151,7 @@ module.exports = async(client, msg, m, setting) => {
 				break
 			case prefix+'donate':
 			case prefix+'donasi':
-				reply(`──「 MENU DONATE 」──\n\nHi ${pushname} 👋🏻\n\`\`\`GOPAY/DANA : 085770269605\`\`\`\n\`\`\`PULSA : 0895382331666 (Tri/3)\`\`\`\nTerimakasih untuk kamu yang sudah donasi untuk perkembangan bot ini _^\n──「 THX FOR YOU ! 」──`)
+				reply(`──「 MENU DONATE 」──\n\nHi ${pushname} 👋🏻\n\`\`\`GOPAY/DANA : 0858-6187-0154\`\`\`\n\`\`\`PULSA : 0858-6187-0154 (Indosat/3)\`\`\`\nTerimakasih untuk kamu yang sudah donasi untuk perkembangan bot ini _^\n──「 THX FOR YOU ! 」──`)
 				break
 			case prefix+'owner':
 				for (let x of ownerNumber) {
@@ -171,7 +180,7 @@ Fitur lainnya masih tahap pengembangan_^`, `WhatsApp Bot © 2020`, templateButto
 					ffmpeg(`./${rand1}`)
 					.on("error", console.error)
 					.on("end", () => {
-						client.sendMessage(from, { sticker: fs.readFileSync(`./${rand2}`) })
+						seiko.sendMessage(from, { sticker: fs.readFileSync(`./${rand2}`) })
 						fs.unlinkSync(`./${rand1}`)
 						fs.unlinkSync(`./${rand2}`)
 					})
@@ -190,7 +199,7 @@ Fitur lainnya masih tahap pengembangan_^`, `WhatsApp Bot © 2020`, templateButto
 					ffmpeg(`./${rand1}`)
 					.on("error", console.error)
 					.on("end", () => {
-						client.sendMessage(from, { sticker: fs.readFileSync(`./${rand2}`) })
+						seiko.sendMessage(from, { sticker: fs.readFileSync(`./${rand2}`) })
 						fs.unlinkSync(`./${rand1}`)
 						fs.unlinkSync(`./${rand2}`)
 					})
