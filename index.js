@@ -65,7 +65,7 @@ const starting = new Spinner(chalk.cyan(` Preparing After Connect`))
 const reconnect = new Spinner(chalk.redBright(` Reconnecting WhatsApp Bot`))
 
 const connectToWhatsApp = async () => {
-	const client = makeWASocket({ printQRInTerminal: true, logger: logg({ level: 'fatal' }), auth: state })
+	const seiko = makeWASocket({ printQRInTerminal: true, logger: logg({ level: 'fatal' }), auth: state })
 	title()
 	
 	/* Auto Update */
@@ -76,15 +76,15 @@ const connectToWhatsApp = async () => {
 	nocache('./lib/myfunc', module => console.log(chalk.greenBright('[ WHATSAPP BOT ]  ') + time + chalk.cyanBright(` "${module}" Telah diupdate!`)))
 	nocache('./message/msg', module => console.log(chalk.greenBright('[ WHATSAPP BOT ]  ') + time + chalk.cyanBright(` "${module}" Telah diupdate!`)))
 	
-	client.multi = true
-	client.nopref = false
-	client.prefa = 'anjing'
-	client.ev.on('messages.upsert', async m => {
+	seiko.multi = true
+	seiko.nopref = false
+	seiko.prefa = 'anjing'
+	seiko.ev.on('messages.upsert', async m => {
 		if (!m.messages) return;
 		const msg = m.messages[0]
-		require('./message/msg')(client, msg, m, setting)
+		require('./message/msg')(seiko, msg, m, setting)
 	})
-	client.ev.on('connection.update', (update) => {
+	seiko.ev.on('connection.update', (update) => {
 		const { connection, lastDisconnect } = update
 		if (connection === 'close') {
 			status.stop()
@@ -96,8 +96,8 @@ const connectToWhatsApp = async () => {
 			: console.log(mylog('Wa web terlogout...'))
 		}
 	})
-	client.ev.on('creds.update', () => saveState)
-	return client
+	seiko.ev.on('creds.update', () => saveState)
+	return seiko
 }
 
 connectToWhatsApp()
