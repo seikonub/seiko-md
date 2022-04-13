@@ -10,7 +10,7 @@
 "use strict";
 const {
 	downloadContentFromMessage
-} = require("@adiwajshing/baileys-md")
+} = require("@adiwajshing/baileys")
 const { color, bgcolor } = require('../lib/color')
 const { getBuffer, fetchJson, fetchText, getRandom, getGroupAdmins, runtime, sleep } = require("../lib/myfunc");
 
